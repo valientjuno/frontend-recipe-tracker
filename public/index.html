@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Tracker SPA</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Recipe Tracker</h1>
+
+      <!-- Message -->
+      <p id="msg"></p>
+
+      <!-- Login Section -->
+      <div id="login-section">
+        <h2>Login</h2>
+        <form id="login-form">
+          <input type="email" id="email" placeholder="Email" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+        <p>
+          Don't have an account?
+          <button id="show-register-btn">Register</button>
+        </p>
+      </div>
+
+      <!-- Register Section -->
+      <div id="register-section" style="display: none">
+        <h2>Register</h2>
+        <form id="register-form">
+          <input
+            type="text"
+            id="reg-username"
+            placeholder="Username"
+            required
+          />
+          <input type="email" id="reg-email" placeholder="Email" required />
+          <input
+            type="password"
+            id="reg-password"
+            placeholder="Password"
+            required
+          />
+          <button type="submit">Register</button>
+        </form>
+        <p>
+          Already have an account?
+          <button id="show-login-btn">Login</button>
+        </p>
+      </div>
+
+      <!-- Recipe Section -->
+      <div id="recipe-section" style="display: none">
+        <h2>Add Recipe</h2>
+        <form id="recipe-form">
+          <input
+            type="text"
+            id="recipe-name"
+            placeholder="Recipe Name"
+            required
+          />
+          <input type="url" id="recipe-source" placeholder="Website URL" />
+          <button type="submit">Add Recipe</button>
+        </form>
+
+        <h2>My Recipes</h2>
+        <ul id="recipe-list"></ul>
+        <button id="logout-btn">Logout</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
