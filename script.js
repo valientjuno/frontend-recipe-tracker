@@ -15,7 +15,9 @@ const showLoginBtn = document.getElementById("show-login-btn");
 let token = "";
 
 // ===== API URL =====
-const API_URL = "/api"; // relative path works both locally and on Render
+// Replace with your actual deployed backend URL on Render
+// Example: "https://my-backend.onrender.com/api"
+const API_URL = "https://backend-recipe-tracker.onrender.com/api";
 
 // ===== SHOW/HIDE LOGIN & REGISTER =====
 showRegisterBtn.onclick = () => {
@@ -99,7 +101,8 @@ loginForm.addEventListener("submit", async (e) => {
     }
   } catch (err) {
     console.error(err);
-    msg.textContent = "Login failed";
+    msg.textContent =
+      "Login failed. Make sure your backend is running and CORS is configured.";
   }
 });
 
@@ -118,14 +121,14 @@ async function fetchRecipes() {
       const li = document.createElement("li");
       li.textContent = `${recipe.name} - ${recipe.source}`;
 
-      // Edit
+      // Edit button
       const editBtn = document.createElement("button");
       editBtn.textContent = "Edit";
       editBtn.onclick = () =>
         editRecipe(recipe._id, recipe.name, recipe.source);
       editBtn.style.marginLeft = "10px";
 
-      // Delete
+      // Delete button
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Delete";
       deleteBtn.onclick = () => deleteRecipe(recipe._id);
@@ -187,6 +190,7 @@ async function editRecipe(id, currentName, currentSource) {
       if (res.ok) fetchRecipes();
     } catch (err) {
       console.error(err);
+      msg.textContent = "Failed to edit recipe";
     }
   }
 }
