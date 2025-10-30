@@ -5,26 +5,25 @@ body {
   margin: 0;
   padding: 0;
 }
-/* Footer styling */
+
 #site-footer {
-  background-color: #222; /* Dark background */
-  color: #f1f1f1; /* Light text */
-  padding: 15px 0; /* Vertical padding */
-  font-size: 0.9rem; /* Slightly smaller text */
+  background-color: #222;
+  color: #f1f1f1;
+  padding: 15px 0;
+  font-size: 0.9rem;
 }
 
 .footer-container {
-  max-width: 600px; /* Restrict width */
-  margin: 0 auto; /* Center horizontally */
-  text-align: center; /* Center text */
-  padding: 0 15px; /* Small horizontal padding for small screens */
-  box-sizing: border-box; /* Ensure padding doesn't break layout */
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 15px;
+  box-sizing: border-box;
 }
 
-/* Optional: Make text wrap nicely on smaller screens */
 .footer-container p {
   word-wrap: break-word;
-  margin: 0; /* Remove default margins */
+  margin: 0;
 }
 
 .container {
