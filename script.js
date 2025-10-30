@@ -14,10 +14,8 @@ const showLoginBtn = document.getElementById("show-login-btn");
 
 let token = "";
 
-// ===== API URL =====
-// Replace with your actual deployed backend URL on Render
-// Example: "https://my-backend.onrender.com/api"
-const API_URL = "https://backend-recipe-tracker.onrender.com/api";
+// api url to backend
+const API_URL = "https://recipe-tracker-umwu.onrender.com/api";
 
 // ===== SHOW/HIDE LOGIN & REGISTER =====
 showRegisterBtn.onclick = () => {
