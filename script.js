@@ -218,9 +218,8 @@ logoutBtn.addEventListener("click", () => {
   msg.textContent = "";
 });
 
-
 // ===== Footer Dynamic Year =====
 const yearSpan = document.getElementById("year");
 const currentYear = new Date().getFullYear();
 yearSpan.textContent = currentYear;
-
+yearSpan.textContent = new Date().getFullYear();
