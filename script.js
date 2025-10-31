@@ -1,3 +1,4 @@
+// ===== Element References =====
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
 const recipeForm = document.getElementById("recipe-form");
@@ -14,10 +15,10 @@ const showLoginBtn = document.getElementById("show-login-btn");
 
 let token = "";
 
-// api url to backend
+// ===== Backend API URL =====
 const API_URL = "https://recipe-tracker-umwu.onrender.com/api";
 
-// ===== SHOW/HIDE LOGIN & REGISTER =====
+// ===== Show/Hide Login & Register =====
 showRegisterBtn.onclick = () => {
   loginSection.style.display = "none";
   registerSection.style.display = "block";
@@ -30,7 +31,7 @@ showLoginBtn.onclick = () => {
   msg.textContent = "";
 };
 
-// ===== CHECK FOR TOKEN ON LOAD =====
+// ===== Check for Token on Page Load =====
 window.addEventListener("DOMContentLoaded", () => {
   const savedToken = localStorage.getItem("token");
   if (savedToken) {
@@ -42,13 +43,31 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ===== REGISTER =====
+// ===== Register =====
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const username = document.getElementById("reg-username").value;
-  const email = document.getElementById("reg-email").value;
-  const password = document.getElementById("reg-password").value;
+  const username = document.getElementById("reg-username").value.trim();
+  const email = document.getElementById("reg-email").value.trim();
+  const password = document.getElementById("reg-password").value.trim();
 
+  // ----- Simple Form Validation -----
+  if (!username || !email || !password) {
+    msg.textContent = "⚠️ Please fill in all fields.";
+    return;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    msg.textContent = "⚠️ Please enter a valid email address.";
+    return;
+  }
+
+  if (password.length < 6) {
+    msg.textContent = "⚠️ Password must be at least 6 characters long.";
+    return;
+  }
+
+  // ----- Send Registration -----
   try {
     const res = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
@@ -63,20 +82,33 @@ registerForm.addEventListener("submit", async (e) => {
       registerSection.style.display = "none";
       loginSection.style.display = "block";
     } else {
-      msg.textContent = data.error || "Registration failed";
+      msg.textContent = data.error || "Registration failed.";
     }
   } catch (err) {
     console.error(err);
-    msg.textContent = "Registration failed";
+    msg.textContent = "Registration failed.";
   }
 });
 
-// ===== LOGIN =====
+// ===== Login =====
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
+  // ----- Simple Form Validation -----
+  if (!email || !password) {
+    msg.textContent = "⚠️ Email and password are required.";
+    return;
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    msg.textContent = "⚠️ Please enter a valid email address.";
+    return;
+  }
+
+  // ----- Send Login -----
   try {
     const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
@@ -95,7 +127,7 @@ loginForm.addEventListener("submit", async (e) => {
       recipeSection.style.display = "block";
       fetchRecipes();
     } else {
-      msg.textContent = data.error || "Login failed";
+      msg.textContent = data.error || "Login failed.";
     }
   } catch (err) {
     console.error(err);
@@ -104,7 +136,7 @@ loginForm.addEventListener("submit", async (e) => {
   }
 });
 
-// ===== FETCH RECIPES =====
+// ===== Fetch Recipes =====
 async function fetchRecipes() {
   try {
     const res = await fetch(`${API_URL}/recipes`, {
@@ -138,15 +170,21 @@ async function fetchRecipes() {
     });
   } catch (err) {
     console.error(err);
-    msg.textContent = "Failed to load recipes";
+    msg.textContent = "Failed to load recipes.";
   }
 }
 
-// ===== ADD RECIPE =====
+// ===== Add Recipe =====
 recipeForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const name = document.getElementById("recipe-name").value;
-  const source = document.getElementById("recipe-source").value;
+  const name = document.getElementById("recipe-name").value.trim();
+  const source = document.getElementById("recipe-source").value.trim();
+
+  // ----- Simple Validation -----
+  if (!name || !source) {
+    msg.textContent = "⚠️ Please enter both a recipe name and source.";
+    return;
+  }
 
   try {
     const res = await fetch(`${API_URL}/recipes`, {
@@ -162,15 +200,15 @@ recipeForm.addEventListener("submit", async (e) => {
       recipeForm.reset();
       fetchRecipes();
     } else {
-      msg.textContent = "Failed to add recipe";
+      msg.textContent = "Failed to add recipe.";
     }
   } catch (err) {
     console.error(err);
-    msg.textContent = "Failed to add recipe";
+    msg.textContent = "Failed to add recipe.";
   }
 });
 
-// ===== EDIT RECIPE =====
+// ===== Edit Recipe =====
 async function editRecipe(id, currentName, currentSource) {
   const newName = prompt("Edit recipe name:", currentName);
   const newSource = prompt("Edit recipe source:", currentSource);
@@ -188,12 +226,12 @@ async function editRecipe(id, currentName, currentSource) {
       if (res.ok) fetchRecipes();
     } catch (err) {
       console.error(err);
-      msg.textContent = "Failed to edit recipe";
+      msg.textContent = "Failed to edit recipe.";
     }
   }
 }
 
-// ===== DELETE RECIPE =====
+// ===== Delete Recipe =====
 async function deleteRecipe(id) {
   if (!confirm("Are you sure you want to delete this recipe?")) return;
 
@@ -205,11 +243,11 @@ async function deleteRecipe(id) {
     if (res.ok) fetchRecipes();
   } catch (err) {
     console.error(err);
-    msg.textContent = "Failed to delete recipe";
+    msg.textContent = "Failed to delete recipe.";
   }
 }
 
-// ===== LOGOUT =====
+// ===== Logout =====
 logoutBtn.addEventListener("click", () => {
   token = "";
   localStorage.removeItem("token");
@@ -220,6 +258,4 @@ logoutBtn.addEventListener("click", () => {
 
 // ===== Footer Dynamic Year =====
 const yearSpan = document.getElementById("year");
-const currentYear = new Date().getFullYear();
-yearSpan.textContent = currentYear;
-yearSpan.textContent = new Date().getFullYear();
+if (yearSpan) yearSpan.textContent = new Date().getFullYear();

@@ -6,6 +6,7 @@ body {
   padding: 0;
 }
 
+/* ===== Footer ===== */
 #site-footer {
   background-color: #222;
   color: #f1f1f1;
@@ -26,6 +27,7 @@ body {
   margin: 0;
 }
 
+/* ===== Container ===== */
 .container {
   max-width: 500px;
   margin: 50px auto;
@@ -41,6 +43,7 @@ h2 {
   text-align: center;
 }
 
+/* ===== Form Styling ===== */
 form {
   display: flex;
   flex-direction: column;
@@ -50,8 +53,17 @@ form {
 input {
   padding: 10px;
   font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+input:focus {
+  border-color: #4f86da;
+  box-shadow: 0 0 3px #4f86da;
+}
+
+/* ===== Buttons ===== */
 button {
   padding: 10px;
   font-size: 1rem;
@@ -61,8 +73,15 @@ button {
   border-radius: 5px;
   cursor: pointer;
   border-style: groove;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
+button:hover {
+  background-color: #45a049;
+  transform: scale(1.02);
+}
+
+/* ===== Recipe List ===== */
 ul {
   list-style: none;
   padding-left: 0;
@@ -77,8 +96,38 @@ li {
   border-bottom: 4px solid #cfccc2;
 }
 
+/* ===== Message Area ===== */
 #msg {
   text-align: center;
   color: red;
   font-weight: bold;
+}
+
+/* ===== Validation Feedback ===== */
+input.invalid {
+  border-color: red;
+  box-shadow: 0 0 5px red;
+}
+
+/* Shake animation for invalid submission */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+form.shake {
+  animation: shake 0.3s ease;
 }
